@@ -15,7 +15,7 @@ const darkPallete = {
     main: "#C7FD04",
   },
   background: {
-    default: "#e0e0298",
+    default: "#161628",
     paper: "#2E2447",
   },
   error: {
@@ -88,7 +88,7 @@ const theme = (dark) =>
 function MyApp({ Component, pageProps }) {
   return (
     <DataProvider>
-      <ThemeProvider theme={theme(false)}>
+      <ThemeProvider theme={theme(true)}>
         <CssBaseline />
         <Component {...pageProps} />
       </ThemeProvider>

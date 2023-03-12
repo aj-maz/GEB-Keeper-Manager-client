@@ -10,6 +10,7 @@ import {
   Wallet,
   PrecisionManufacturing,
   Podcasts,
+  PeopleAlt,
 } from "@mui/icons-material";
 import { useRouter } from "next/router";
 
@@ -25,6 +26,7 @@ const Menu = () => {
     { title: "Wallets", Icon: Wallet, route: "/wallets" },
     { title: "Networks", Icon: Podcasts, route: "/networks" },
     { title: "Keepers", Icon: PrecisionManufacturing, route: "/keepers" },
+    { title: "Users", Icon: PeopleAlt, route: "/users" },
   ];
 
   return (

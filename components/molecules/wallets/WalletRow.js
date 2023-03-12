@@ -21,7 +21,7 @@ const WalletRow = () => {
       </PointerRow>
       <PointerRow>
         <TableCell component="th" scope="row"></TableCell>
-        <TableCell align="center">Rai-Mainnet</TableCell>
+        <TableCell align="center">Tai-Testnet</TableCell>
         <TableCell align="right">
           <Chip color="secondary" label="Ready" />
         </TableCell>
