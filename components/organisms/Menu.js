@@ -11,15 +11,18 @@ import {
   PrecisionManufacturing,
   Podcasts,
 } from "@mui/icons-material";
+import { useRouter } from "next/router";
 
 const Menu = () => {
+  const router = useRouter();
+
   const menu = [
     {
       title: "Home",
       Icon: Home,
-      route: "/home",
+      route: "/",
     },
-    { title: "Wallets", Icon: Wallet, route: "/wallet" },
+    { title: "Wallets", Icon: Wallet, route: "/wallets" },
     { title: "Networks", Icon: Podcasts, route: "/networks" },
     { title: "Keepers", Icon: PrecisionManufacturing, route: "/keepers" },
   ];
@@ -27,7 +30,7 @@ const Menu = () => {
   return (
     <List>
       {menu.map(({ title, Icon, route }, index) => (
-        <ListItem key={title} disablePadding>
+        <ListItem onClick={() => router.push(route)} key={title} disablePadding>
           <ListItemButton>
             <ListItemIcon>
               <Icon />

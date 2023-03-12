@@ -1,3 +1,5 @@
 import DashboardLayout from "./DashboardLayout";
 
-export { DashboardLayout };
+import WalletsTable from "./wallets/WalletsTable";
+
+export { DashboardLayout, WalletsTable };
