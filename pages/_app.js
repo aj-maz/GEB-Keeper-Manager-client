@@ -1,5 +1,11 @@
 import { DataProvider } from "../data/providers";
 import { createTheme, ThemeProvider, CssBaseline } from "@mui/material";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  gql,
+} from "@apollo/client";
 
 const darkPallete = {
   mode: "dark",
@@ -12,7 +18,7 @@ const darkPallete = {
     light: "#B3A8FF",
   },
   secondary: {
-    main: "#C7FD04",
+    main: "#F7D53B",
   },
   background: {
     default: "#161628",
@@ -85,14 +91,21 @@ const theme = (dark) =>
     },
   });
 
+const client = new ApolloClient({
+  uri: "http://localhost:4000/",
+  cache: new InMemoryCache(),
+});
+
 function MyApp({ Component, pageProps }) {
   return (
-    <DataProvider>
-      <ThemeProvider theme={theme(false)}>
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </DataProvider>
+    <ApolloProvider client={client}>
+      <DataProvider>
+        <ThemeProvider theme={theme(true)}>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </DataProvider>
+    </ApolloProvider>
   );
 }
 
