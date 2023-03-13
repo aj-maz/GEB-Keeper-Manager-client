@@ -1,3 +1,4 @@
 import GET_NETWORKS from "./GET_NETWORKS";
+import GET_WALLETS from "./GET_WALLETS";
 
-export { GET_NETWORKS };
+export { GET_NETWORKS, GET_WALLETS };

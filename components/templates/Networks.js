@@ -5,7 +5,7 @@ import { Grid, Typography } from "@mui/material";
 import { DashboardLayout, NetworksList, NetworkInfo } from "../organisms";
 import { useState } from "react";
 
-const Networks = ({ data, loading, error }) => {
+const Networks = ({ data, loading }) => {
   const [selected, setSelected] = useState(null);
 
   const networks = !data ? [] : data.networks;

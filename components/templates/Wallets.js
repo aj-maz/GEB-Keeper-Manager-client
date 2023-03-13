@@ -1,9 +1,11 @@
 /* eslint-disable react/react-in-jsx-scope -- Unaware of jsxImportSource */
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { Typography } from "@mui/material";
 import { DashboardLayout, WalletsTable, NewWalletButton } from "../organisms";
 
-const Wallets = () => {
+const Wallets = ({ data, loading, error }) => {
+  const wallets = data ? data.wallets : [];
   return (
     <DashboardLayout>
       <div
@@ -15,7 +17,11 @@ const Wallets = () => {
       >
         <NewWalletButton />
       </div>
-      <WalletsTable />
+      {loading && !data ? (
+        <Typography variant="h6">Loading ...</Typography>
+      ) : (
+        <WalletsTable wallets={wallets} />
+      )}
     </DashboardLayout>
   );
 };
