@@ -3,4 +3,6 @@ import Navbar from "./Navbar";
 
 import WalletRow from "./wallets/WalletRow";
 
-export { Header, Navbar, WalletRow };
+import NetworkDetails from "./networks/NetworkDetails";
+
+export { Header, Navbar, WalletRow, NetworkDetails };

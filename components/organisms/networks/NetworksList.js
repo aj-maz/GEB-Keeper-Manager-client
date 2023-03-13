@@ -1,25 +1,22 @@
 /* eslint-disable react/react-in-jsx-scope -- Unaware of jsxImportSource */
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import * as React from "react";
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Divider from "@mui/material/Divider";
-import InboxIcon from "@mui/icons-material/Inbox";
-import DraftsIcon from "@mui/icons-material/Drafts";
+import {
+  Paper,
+  ListItemText,
+  ListItemButton,
+  ListItem,
+  List,
+} from "@mui/material";
 
-const NetworksList = ({ selected, networks, loading, onSelect = () => {} }) => {
+const NetworksList = ({ selected, networks, onSelect = () => {} }) => {
   const systemsOfNetwork = (network) =>
     network.systems.length > 0
       ? network.systems.map((system) => system.name).join(", ")
       : "No system in the network";
 
   return (
-    <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+    <Paper sx={{ width: "100%" }}>
       <List>
         {networks.length > 0 ? (
           networks.map((network) => (
@@ -43,7 +40,7 @@ const NetworksList = ({ selected, networks, loading, onSelect = () => {} }) => {
           </ListItem>
         )}
       </List>
-    </Box>
+    </Paper>
   );
 };
 

@@ -32,7 +32,7 @@ const darkPallete = {
 const lightPalette = {
   mode: "light",
   primary: {
-    main: "#2192FF",
+    main: "#8338ec",
     paper: "#493E7F",
   },
   lavendar: {
@@ -40,11 +40,11 @@ const lightPalette = {
     light: "#B3A8FF",
   },
   secondary: {
-    main: "#38E54D",
+    main: "#3a86ff",
   },
   background: {
-    default: "#F8F4EA",
-    paper: "#F8F4EA",
+    default: "#FDFEFF",
+    paper: "#FEFFFF",
   },
   error: {
     main: "#FF5E5B",
@@ -88,7 +88,7 @@ const theme = (dark) =>
 function MyApp({ Component, pageProps }) {
   return (
     <DataProvider>
-      <ThemeProvider theme={theme(true)}>
+      <ThemeProvider theme={theme(false)}>
         <CssBaseline />
         <Component {...pageProps} />
       </ThemeProvider>

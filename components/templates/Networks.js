@@ -2,7 +2,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { Grid } from "@mui/material";
-import { DashboardLayout, NetworksList } from "../organisms";
+import { DashboardLayout, NetworksList, NetworkInfo } from "../organisms";
 
 const Networks = () => {
   const networks = [
@@ -66,11 +66,20 @@ const Networks = () => {
 
   const loading = false;
 
+  const selected = 1;
+
   return (
     <DashboardLayout>
       <Grid container spacing={2}>
         <Grid item md={6}>
-          <NetworksList networks={networks} loading={loading} selected={2} />
+          <NetworksList
+            networks={networks}
+            loading={loading}
+            selected={selected}
+          />
+        </Grid>
+        <Grid item md={6}>
+          <NetworkInfo network={networks[selected]} />
         </Grid>
       </Grid>
     </DashboardLayout>
