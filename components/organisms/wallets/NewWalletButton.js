@@ -1,15 +1,12 @@
-import * as React from "react";
+import { useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import EditIcon from "@mui/icons-material/Edit";
-import Divider from "@mui/material/Divider";
-import ArchiveIcon from "@mui/icons-material/Archive";
-import FileCopyIcon from "@mui/icons-material/FileCopy";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Shield, Add, FileUpload } from "@mui/icons-material";
+
+import { AddWalletDialoge } from "../../molecules";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -55,8 +52,10 @@ const StyledMenu = styled((props) => (
 }));
 
 const NewWalletButton = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const [addWalletDialog, setAddWalletDialog] = useState("");
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -64,8 +63,28 @@ const NewWalletButton = () => {
     setAnchorEl(null);
   };
 
+  const onOpenAddDialog = (variant) => {
+    setAddWalletDialog(variant);
+  };
+
+  const onCloseAddDialog = () => {
+    setAddWalletDialog("");
+  };
+
+  const closeWrapper = (cb) => {
+    cb();
+    handleClose();
+  };
+
+  const closeMenuOpenDialog = (variant) =>
+    closeWrapper(() => onOpenAddDialog(variant));
+
   return (
     <div>
+      <AddWalletDialoge
+        open={!!addWalletDialog}
+        onClose={onCloseAddDialog}
+      ></AddWalletDialoge>
       <Button
         id="demo-customized-button"
         aria-controls={open ? "demo-customized-menu" : undefined}
@@ -87,15 +106,18 @@ const NewWalletButton = () => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={() => closeMenuOpenDialog("create")} disableRipple>
           <Add />
           Create new wallet
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={() => closeMenuOpenDialog("file")} disableRipple>
           <FileUpload />
           Import with key file
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem
+          onClick={() => closeMenuOpenDialog("privateKey")}
+          disableRipple
+        >
           <Shield />
           Import with private key
         </MenuItem>
