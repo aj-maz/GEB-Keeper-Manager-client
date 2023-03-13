@@ -3,8 +3,11 @@
 import { css } from "@emotion/react";
 import { Grid } from "@mui/material";
 import { DashboardLayout, NetworksList, NetworkInfo } from "../organisms";
+import { useState } from "react";
 
 const Networks = () => {
+  const [selected, setSelected] = useState(null);
+
   const networks = [
     {
       id: 0,
@@ -66,7 +69,10 @@ const Networks = () => {
 
   const loading = false;
 
-  const selected = 1;
+  const selectedNetwork =
+    networks && selected !== null
+      ? networks.find((network) => network.id === selected)
+      : null;
 
   return (
     <DashboardLayout>
@@ -76,10 +82,13 @@ const Networks = () => {
             networks={networks}
             loading={loading}
             selected={selected}
+            onSelect={(id) => {
+              setSelected(id);
+            }}
           />
         </Grid>
         <Grid item md={6}>
-          <NetworkInfo network={networks[selected]} />
+          {selectedNetwork && <NetworkInfo network={selectedNetwork} />}
         </Grid>
       </Grid>
     </DashboardLayout>
