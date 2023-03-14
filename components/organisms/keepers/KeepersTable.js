@@ -10,10 +10,12 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
+import { useRouter } from "next/router";
 
 import { WalletRow } from "../../molecules";
 
 const KeepersTable = ({ keepers }) => {
+  const router = useRouter();
   console.log(keepers);
   return (
     <TableContainer component={Paper}>
@@ -34,6 +36,7 @@ const KeepersTable = ({ keepers }) => {
               css={css`
                 cursor: pointer;
               `}
+              onClick={() => router.push(`/keepers/details/${keeper._id}`)}
             >
               <TableCell>{keeper.name}</TableCell>
               <TableCell align="center">{keeper.network}</TableCell>
