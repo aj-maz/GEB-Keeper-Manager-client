@@ -1,12 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { styled, alpha } from "@mui/material/styles";
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import { MenuItem, Button, Menu } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Shield, Add, FileUpload } from "@mui/icons-material";
 
-import { AddWalletDialoge } from "../../molecules";
+import { AddWalletDialoge, CreateNewWallet } from "../../molecules";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -55,6 +53,11 @@ const NewWalletButton = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const [addWalletDialog, setAddWalletDialog] = useState("");
+  const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    setPassword("");
+  }, [addWalletDialog]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -79,12 +82,38 @@ const NewWalletButton = () => {
   const closeMenuOpenDialog = (variant) =>
     closeWrapper(() => onOpenAddDialog(variant));
 
+  const dialogsVariants = {
+    create: {
+      content: (
+        <CreateNewWallet
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      ),
+      title: "Create a new wallet",
+      onCreate: () => {
+        // TODO must mutate the api
+      },
+      actionLabel: "Create Wallet",
+    },
+  };
+
+  const dialog =
+    addWalletDialog && dialogsVariants[addWalletDialog]
+      ? dialogsVariants[addWalletDialog]
+      : dialogsVariants.create;
+
   return (
     <div>
       <AddWalletDialoge
         open={!!addWalletDialog}
+        title={dialog.title}
+        actionLabel={dialog.actionLabel}
         onClose={onCloseAddDialog}
-      ></AddWalletDialoge>
+        onCreate={dialog.onCreate}
+      >
+        {dialog.content}
+      </AddWalletDialoge>
       <Button
         id="demo-customized-button"
         aria-controls={open ? "demo-customized-menu" : undefined}
