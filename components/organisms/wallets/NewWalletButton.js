@@ -49,7 +49,7 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-const NewWalletButton = () => {
+const NewWalletButton = ({ generateNewWallet, refetch }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const [addWalletDialog, setAddWalletDialog] = useState("");
@@ -91,8 +91,10 @@ const NewWalletButton = () => {
         />
       ),
       title: "Create a new wallet",
-      onCreate: () => {
-        // TODO must mutate the api
+      onCreate: async () => {
+        await generateNewWallet({ variables: { password } });
+        await refetch();
+        onCloseAddDialog();
       },
       actionLabel: "Create Wallet",
     },

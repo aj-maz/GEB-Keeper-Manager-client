@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import { Typography } from "@mui/material";
 import { DashboardLayout, WalletsTable, NewWalletButton } from "../organisms";
 
-const Wallets = ({ data, loading, error }) => {
+const Wallets = ({ data, loading, error, refetch, generateNewWallet }) => {
   const wallets = data ? data.wallets : [];
   return (
     <DashboardLayout>
@@ -15,7 +15,10 @@ const Wallets = ({ data, loading, error }) => {
           flex-direction: row-reverse;
         `}
       >
-        <NewWalletButton />
+        <NewWalletButton
+          generateNewWallet={generateNewWallet}
+          refetch={refetch}
+        />
       </div>
       {loading && !data ? (
         <Typography variant="h6">Loading ...</Typography>
