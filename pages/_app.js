@@ -38,7 +38,7 @@ const darkPallete = {
 const lightPalette = {
   mode: "light",
   primary: {
-    main: "#8338ec",
+    main: "#F7D53B",
     paper: "#493E7F",
   },
   lavendar: {
@@ -46,7 +46,7 @@ const lightPalette = {
     light: "#B3A8FF",
   },
   secondary: {
-    main: "#3a86ff",
+    main: "#8338ec",
   },
   background: {
     default: "#FDFEFF",
@@ -100,7 +100,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <ApolloProvider client={client}>
       <DataProvider>
-        <ThemeProvider theme={theme(true)}>
+        <ThemeProvider theme={theme(false)}>
           <CssBaseline />
           <Component {...pageProps} />
         </ThemeProvider>
