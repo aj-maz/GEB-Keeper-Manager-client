@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import { Typography } from "@mui/material";
 import { DashboardLayout, AddKeeperForm } from "../organisms";
 
-const Keepers = ({ data, loading, error }) => {
+const Keepers = ({ data, loading, error, startKeeper }) => {
   console.log(data, loading);
 
   const wallets = data && data.wallets ? data.wallets : [];
@@ -15,7 +15,11 @@ const Keepers = ({ data, loading, error }) => {
       {loading && data ? (
         <Typography variant="h6">Loading ...</Typography>
       ) : (
-        <AddKeeperForm wallets={wallets} networks={networks} />
+        <AddKeeperForm
+          startKeeper={startKeeper}
+          wallets={wallets}
+          networks={networks}
+        />
       )}
     </DashboardLayout>
   );

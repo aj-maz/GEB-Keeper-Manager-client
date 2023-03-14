@@ -13,14 +13,20 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
-const AddKeeperForm = ({ wallets, networks }) => {
+const AddKeeperForm = ({ wallets, networks, startKeeper }) => {
+  const router = useRouter();
   const [keeperName, setKeeperName] = useState("");
-  const [wallet, setWallet] = useState(wallets[0].address);
+  const [wallet, setWallet] = useState(null);
   const [network, setNetwork] = useState(null);
   const [system, setSystem] = useState(null);
-  const [flashProxy, setFlashProxy] = useState(null);
+  const [flashSwap, setFlashSwap] = useState(null);
+
+  useEffect(() => {
+    setSystem(null);
+  }, [network]);
 
   const selectedNetwork = networks.find((net) => net.name === network);
 
@@ -131,8 +137,8 @@ const AddKeeperForm = ({ wallets, networks }) => {
             `}
           >
             <Checkbox
-              value={flashProxy}
-              onChange={() => setFlashProxy((v) => !v)}
+              value={flashSwap}
+              onChange={() => setFlashSwap((v) => !v)}
               color="secondary"
               size="small"
             />
@@ -142,7 +148,7 @@ const AddKeeperForm = ({ wallets, networks }) => {
               `}
               variant="body1"
             >
-              Flash Proxy Enabled
+              Flash Swap Enabled
             </Typography>
           </div>
         </Grid>
@@ -158,6 +164,23 @@ const AddKeeperForm = ({ wallets, networks }) => {
           disabled={!(keeperName && wallet && network && system)}
           variant="contained"
           color="secondary"
+          onClick={() => {
+            startKeeper({
+              variables: {
+                keeperName,
+                wallet,
+                network,
+                system,
+                flashSwap,
+              },
+            })
+              .then((r) => {
+                //router.push(`/keeper/details/${keeperName}`);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }}
         >
           Run Keeper
         </Button>
