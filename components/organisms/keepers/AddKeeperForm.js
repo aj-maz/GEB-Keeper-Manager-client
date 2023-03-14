@@ -22,7 +22,9 @@ const AddKeeperForm = ({ wallets, networks, startKeeper }) => {
   const [wallet, setWallet] = useState(null);
   const [network, setNetwork] = useState(null);
   const [system, setSystem] = useState(null);
-  const [flashSwap, setFlashSwap] = useState(null);
+  const [flashSwap, setFlashSwap] = useState(false);
+
+  const [running, setRunning] = useState(false);
 
   useEffect(() => {
     setSystem(null);
@@ -161,10 +163,11 @@ const AddKeeperForm = ({ wallets, networks, startKeeper }) => {
         `}
       >
         <Button
-          disabled={!(keeperName && wallet && network && system)}
+          disabled={!(keeperName && wallet && network && system) || running}
           variant="contained"
           color="secondary"
           onClick={() => {
+            setRunning(true);
             startKeeper({
               variables: {
                 keeperName,
@@ -175,14 +178,18 @@ const AddKeeperForm = ({ wallets, networks, startKeeper }) => {
               },
             })
               .then((r) => {
+                setRunning(false);
+
                 //router.push(`/keeper/details/${keeperName}`);
               })
               .catch((err) => {
+                setRunning(false);
+
                 console.log(err);
               });
           }}
         >
-          Run Keeper
+          {running ? "Wait for it" : "Run Keeper"}
         </Button>
       </div>
     </Paper>

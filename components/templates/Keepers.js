@@ -1,12 +1,14 @@
 /* eslint-disable react/react-in-jsx-scope -- Unaware of jsxImportSource */
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { DashboardLayout, KeepersTable } from "../organisms";
 import { useRouter } from "next/router";
 
-const Keepers = () => {
+const Keepers = ({ data, loading }) => {
   const router = useRouter();
+
+  const keepers = !data ? [] : data.keepers;
 
   return (
     <DashboardLayout>
@@ -27,7 +29,11 @@ const Keepers = () => {
           Add new keeper
         </Button>
       </div>
-      <KeepersTable />
+      {loading ? (
+        <Typography variant="h6">Loading ...</Typography>
+      ) : (
+        <KeepersTable keepers={keepers} />
+      )}
     </DashboardLayout>
   );
 };

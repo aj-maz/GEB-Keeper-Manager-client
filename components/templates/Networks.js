@@ -1,6 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope -- Unaware of jsxImportSource */
-/** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import { Grid, Typography } from "@mui/material";
 import { DashboardLayout, NetworksList, NetworkInfo } from "../organisms";
 import { useState } from "react";
