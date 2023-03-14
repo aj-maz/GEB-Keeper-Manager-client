@@ -1,13 +1,22 @@
 /* eslint-disable react/react-in-jsx-scope -- Unaware of jsxImportSource */
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Button } from "@mui/material";
+import { Typography } from "@mui/material";
 import { DashboardLayout, AddKeeperForm } from "../organisms";
 
-const Keepers = () => {
+const Keepers = ({ data, loading, error }) => {
+  console.log(data, loading);
+
+  const wallets = data && data.wallets ? data.wallets : [];
+  const networks = data && data.networks ? data.networks : [];
+
   return (
     <DashboardLayout>
-      <AddKeeperForm />
+      {loading && data ? (
+        <Typography variant="h6">Loading ...</Typography>
+      ) : (
+        <AddKeeperForm wallets={wallets} networks={networks} />
+      )}
     </DashboardLayout>
   );
 };
