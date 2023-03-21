@@ -2,7 +2,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { Typography } from "@mui/material";
-import { DashboardLayout, KeeperInfo } from "../organisms";
+import { DashboardLayout, KeeperInfo, KeeperLogs } from "../organisms";
 
 const KeeperDetails = ({ data, loading }) => {
   const keeper = !data ? null : data.keeper;
@@ -14,6 +14,12 @@ const KeeperDetails = ({ data, loading }) => {
       ) : (
         <div>
           <KeeperInfo keeper={keeper} />
+          <div
+            css={css`
+              margin-top: 1em;
+            `}
+          ></div>
+          <KeeperLogs keeper={keeper} />
         </div>
       )}
     </DashboardLayout>

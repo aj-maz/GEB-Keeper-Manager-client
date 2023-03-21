@@ -5,7 +5,6 @@ import { Paper, Typography, Grid } from "@mui/material";
 import { InfoRow } from "../../atoms";
 
 const KeeperInfo = ({ keeper }) => {
-  console.log(keeper);
   return (
     <Paper
       css={css`

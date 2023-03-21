@@ -100,7 +100,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <ApolloProvider client={client}>
       <DataProvider>
-        <ThemeProvider theme={theme(false)}>
+        <ThemeProvider theme={theme(true)}>
           <CssBaseline />
           <Component {...pageProps} />
         </ThemeProvider>

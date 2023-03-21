@@ -32,7 +32,7 @@ const Keepers = ({ data, loading }) => {
       {loading ? (
         <Typography variant="h6">Loading ...</Typography>
       ) : (
-        <KeepersTable keepers={keepers} />
+        <KeepersTable keepers={[...keepers].reverse()} />
       )}
     </DashboardLayout>
   );

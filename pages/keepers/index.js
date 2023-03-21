@@ -1,9 +1,14 @@
 import { useQuery } from "@apollo/client";
 import { Keepers } from "../../components/templates";
 import { GET_KEEPERS } from "../../data/queries";
+import { useEffect } from "react";
 
 const KeepersPage = () => {
-  const { data, loading, error } = useQuery(GET_KEEPERS);
+  const { data, loading, error, startPolling } = useQuery(GET_KEEPERS);
+
+  useEffect(() => {
+    startPolling(500);
+  }, []);
 
   return <Keepers data={data} loading={loading} error={error} />;
 };

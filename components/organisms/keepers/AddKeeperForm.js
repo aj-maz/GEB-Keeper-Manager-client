@@ -177,15 +177,12 @@ const AddKeeperForm = ({ wallets, networks, startKeeper }) => {
                 flashSwap,
               },
             })
-              .then((r) => {
+              .then(({ data }) => {
+                router.push(`/keepers/details/${data.startKeeper}`);
                 setRunning(false);
-
-                //router.push(`/keeper/details/${keeperName}`);
               })
               .catch((err) => {
                 setRunning(false);
-
-                console.log(err);
               });
           }}
         >

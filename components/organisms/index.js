@@ -9,6 +9,7 @@ import NetworkInfo from "./networks/NetworkInfo";
 import KeepersTable from "./keepers/KeepersTable";
 import AddKeeperForm from "./keepers/AddKeeperForm";
 import KeeperInfo from "./keepers/KeeperInfo";
+import KeeperLogs from "./keepers/KeeperLogs";
 
 export {
   DashboardLayout,
@@ -19,4 +20,5 @@ export {
   KeepersTable,
   AddKeeperForm,
   KeeperInfo,
+  KeeperLogs,
 };
