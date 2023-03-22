@@ -6,6 +6,8 @@ const GET_KEEPER = gql`
       _id
       logs {
         message
+        date
+        variant
       }
       name
       network

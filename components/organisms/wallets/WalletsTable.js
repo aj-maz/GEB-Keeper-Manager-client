@@ -18,8 +18,8 @@ const WalletsTable = ({ wallets }) => {
           <TableRow>
             <TableCell>Address</TableCell>
             <TableCell align="center">Actions</TableCell>
-            <TableCell align="center">Network</TableCell>
-            <TableCell align="right">Status</TableCell>
+            {/* <TableCell align="center">Network</TableCell>
+            <TableCell align="right">Status</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>

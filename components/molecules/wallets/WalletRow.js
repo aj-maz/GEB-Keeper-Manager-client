@@ -11,7 +11,7 @@ const WalletRow = ({ wallet }) => {
   return (
     <>
       <TableRow>
-        <TableCell sx={{ border: 0 }} component="th" scope="row">
+        <TableCell component="th" scope="row">
           {wallet.address}
         </TableCell>
         <TableCell align="center">
@@ -29,10 +29,10 @@ const WalletRow = ({ wallet }) => {
             </IconButton>
           </div>
         </TableCell>
-        <TableCell align="center"></TableCell>
-        <TableCell align="right"></TableCell>
+        {/*<TableCell align="center"></TableCell>
+        <TableCell align="right"></TableCell>*/}
       </TableRow>
-      <PointerRow>
+      {/*<PointerRow>
         <TableCell sx={{ border: 0 }} component="th" scope="row"></TableCell>
         <TableCell align="center"></TableCell>
         <TableCell align="center">Rai-Mainnet</TableCell>
@@ -47,7 +47,7 @@ const WalletRow = ({ wallet }) => {
         <TableCell align="right">
           <Chip color="secondary" label="Ready" />
         </TableCell>
-      </PointerRow>
+  </PointerRow>*/}
     </>
   );
 };
