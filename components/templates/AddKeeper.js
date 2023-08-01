@@ -2,7 +2,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { Typography } from "@mui/material";
-import { DashboardLayout, AddKeeperForm } from "../organisms";
+import { DashboardLayout, CreateKeeperSteps } from "../organisms";
 
 const Keepers = ({ data, loading, error, startKeeper }) => {
   console.log(data, loading);
@@ -15,11 +15,7 @@ const Keepers = ({ data, loading, error, startKeeper }) => {
       {loading && data ? (
         <Typography variant="h6">Loading ...</Typography>
       ) : (
-        <AddKeeperForm
-          startKeeper={startKeeper}
-          wallets={wallets}
-          networks={networks}
-        />
+        <CreateKeeperSteps/>
       )}
     </DashboardLayout>
   );

@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import CreateKeeperSteps from "./CreateKeeperSteps";
 
 const AddKeeperForm = ({ wallets, networks, startKeeper }) => {
   const router = useRouter();
@@ -38,6 +39,11 @@ const AddKeeperForm = ({ wallets, networks, startKeeper }) => {
         padding: 1em;
       `}
     >
+      <Grid container spacing={2}>
+          <Grid item md={4}>
+            <CreateKeeperSteps />
+          </Grid>
+      </Grid>
       <Grid container spacing={2}>
         <Grid item md={6}>
           <TextField
