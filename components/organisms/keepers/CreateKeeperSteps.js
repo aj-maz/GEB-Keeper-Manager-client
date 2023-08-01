@@ -11,18 +11,64 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {Paper} from "@mui/material"
 import KeeperSystemStep from "./KeeperSystemStep";
+import WalletSelectionStep from "./WalletSelectionStep";
+import {ethers} from 'ethers'
 
 
+ const CreateKeeperSteps = ({systems}) => {
 
- const CreateKeeperSteps = () => {
 
      const [keeperSettings, setKeeperSetting] = useState({
          system: {
              name: '',
              network: '',
              collateral: ''
+         },
+         wallet: {
+             variant: 0,
+             generate: {
+                 password: ''
+             },
+             fromFile: {
+                 file: null,
+                 password: ''
+             },
+             fromPrivateKey: {
+                 privateKey: ''
+             }
          }
      })
+
+     const pK = keeperSettings.wallet.fromPrivateKey.privateKey
+
+     const getNormalizedKey = (pK) => {
+         let normalized = pK
+         if(!ethers.isBytesLike(pK)) {
+             normalized = `0x${pK}`
+         }
+         return normalized;
+     }
+
+     const isPrivateKey = (pK) => {
+            const normalizedPk = getNormalizedKey(pK);
+         return ethers.isBytesLike(normalizedPk) ? ethers.dataLength(normalizedPk) === 32 : false
+     }
+
+
+     const getAddressFromPrivateKey = (privateKey) => {
+         const isPk = isPrivateKey(privateKey)
+         if(isPk) return (new ethers.Wallet(privateKey)).address
+         return null
+     }
+
+
+     const canContinueWallet = () => {
+         const walletSettings = keeperSettings.wallet
+         if(walletSettings.variant === 0) return true;
+         if(walletSettings.variant === 2 &&getAddressFromPrivateKey(walletSettings.fromPrivateKey.privateKey)) return true;
+         return false
+     }
+
 
      const changeKeeperSetting = (highKey) => (lowKey) => value => {
          const nKS = {...keeperSettings}
@@ -34,13 +80,12 @@ import KeeperSystemStep from "./KeeperSystemStep";
          {
              label: 'Choose System',
              caption: 'Choose the system, network and collateral of the keeper',
-             content: <KeeperSystemStep systemSettings={keeperSettings.system} setSystemSettings={changeKeeperSetting('system')} />,
+             content: <KeeperSystemStep systems={systems} systemSettings={keeperSettings.system} setSystemSettings={changeKeeperSetting('system')} />,
          },
          {
              label: 'Keeper Wallet',
              caption: 'Choose the wallet that runs the keeper',
-             description:
-                 'An ad group contains one or more ads which target a shared set of keywords.',
+             content: <WalletSelectionStep setWalletSetup={changeKeeperSetting('wallet')} walletSetup={keeperSettings.wallet} />
          },
          {
              label: 'Wallet Setup',
@@ -54,7 +99,13 @@ import KeeperSystemStep from "./KeeperSystemStep";
 
     const [activeStep, setActiveStep] = useState(0);
 
-    const handleNext = () => {
+     const canContinue = () => {
+         if(activeStep === 0) return true;
+         if(activeStep === 1) return canContinueWallet()
+     }
+
+
+     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
 
@@ -87,6 +138,7 @@ import KeeperSystemStep from "./KeeperSystemStep";
                                         onClick={handleNext}
                                         sx={{ mt: 1, mr: 1 }}
                                         size="small"
+                                        disabled={!canContinue()}
                                     >
                                         {index === steps.length - 1 ? 'Finish' : 'Continue'}
                                     </Button>

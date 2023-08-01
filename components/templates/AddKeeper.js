@@ -5,17 +5,15 @@ import { Typography } from "@mui/material";
 import { DashboardLayout, CreateKeeperSteps } from "../organisms";
 
 const Keepers = ({ data, loading, error, startKeeper }) => {
-  console.log(data, loading);
 
-  const wallets = data && data.wallets ? data.wallets : [];
-  const networks = data && data.networks ? data.networks : [];
+  const systems = data && data.systems ? data.systems : [];
 
   return (
     <DashboardLayout>
-      {loading && data ? (
+      {loading && !data ? (
         <Typography variant="h6">Loading ...</Typography>
       ) : (
-        <CreateKeeperSteps/>
+        <CreateKeeperSteps systems={systems}/>
       )}
     </DashboardLayout>
   );

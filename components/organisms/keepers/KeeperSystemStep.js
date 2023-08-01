@@ -2,45 +2,13 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { Select, Grid, MenuItem } from "@mui/material";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 
-const systems = [{
- name: "RAI",
- systemCoin: '0x4A87a2A017Be7feA0F37f03F3379d43665486Ff8',
-    networks: [
-        {
-            name: "Mainnet",
-            nativeCoin: "ETH",
-            collaterals: [
-                {
-                    name: "ETH-A",
-                    address: '0x000'
-                }
-            ]
-        },
-    ]
-}, {
-    name: "TAI",
-    systemCoin: '0x4A87a2A017Be7feA0F37f03F3379d43665486Ff8',
-    networks: [
-        {
-            name: "Goerli",
-            nativeCoin: "GoerliETH",
-            collaterals: [
-                {
-                    name: "ETH-A",
-                    address: '0x000'
-                },
-                {
-                    name: "WETH-A",
-                    address: '0x000'
-                }
-            ]
-        },
-    ]
-}]
 
-const KeeperSystemStep = ({systemSettings, setSystemSettings}) => {
+
+const KeeperSystemStep = ({systemSettings, setSystemSettings, systems}) => {
+
+    console.log(systems)
 
     const selectedSystem = systemSettings.name
     const setSelectedSystem = setSystemSettings('name')

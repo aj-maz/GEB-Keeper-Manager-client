@@ -1,9 +1,11 @@
 import { useQuery, useMutation } from "@apollo/client";
 import { AddKeeper } from "../../components/templates";
-import { GET_WALLETS_PLUS_NETWORKS, START_KEEPER } from "../../data/queries";
+import {  START_KEEPER, GET_SYSTEMS } from "../../data/queries";
 
 const AddKeeperPage = () => {
-  const { data, loading, error } = useQuery(GET_WALLETS_PLUS_NETWORKS);
+  console.log(GET_SYSTEMS)
+
+  const { data, loading, error } = useQuery(GET_SYSTEMS);
   const [startKeeper] = useMutation(START_KEEPER);
 
   return (
