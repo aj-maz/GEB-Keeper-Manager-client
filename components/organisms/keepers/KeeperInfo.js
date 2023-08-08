@@ -13,7 +13,7 @@ const KeeperInfo = ({ keeper }) => {
     >
       <Grid container spacing={2}>
         <Grid item md={6}>
-          <InfoRow label="Name" value={keeper.name}></InfoRow>
+          <InfoRow label="Wallet" value={keeper.wallet}></InfoRow>
         </Grid>
         <Grid item md={6}>
           <InfoRow label="Network" value={keeper.network}></InfoRow>
@@ -25,7 +25,8 @@ const KeeperInfo = ({ keeper }) => {
           <InfoRow label="System" value={keeper.system}></InfoRow>
         </Grid>
         <Grid item md={12}>
-          <InfoRow label="Wallet" value={keeper.wallet}></InfoRow>
+          <InfoRow label="Collateral" value={keeper.collateral}></InfoRow>
+
         </Grid>
       </Grid>
     </Paper>

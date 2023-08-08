@@ -1,21 +1,15 @@
-import { gql } from "@apollo/client";
+import {gql} from "@apollo/client";
 
 const START_KEEPER = gql`
-  mutation StartKeeper(
-    $keeperName: String!
-    $wallet: String!
-    $network: String!
-    $system: String!
-    $flashSwap: Boolean!
-  ) {
-    startKeeper(
-      keeperName: $keeperName
-      wallet: $wallet
-      network: $network
-      system: $system
-      flashSwap: $flashSwap
+    mutation startKeeper($system: String!, $network: String!, $collateral: String!, $privateKey: String!, $options: [String!]!) {
+        startKeeper(
+        system: $system
+        network: $network
+        collateral: $collateral
+        privateKey: $privateKey
+        options: $options
     )
-  }
+}
 `;
 
 export default START_KEEPER;

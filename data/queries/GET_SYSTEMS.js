@@ -6,9 +6,10 @@ const GET_SYSTEMS = gql`
 {
   systems {
     name
-    systemCoin
     networks {
       nativeCoin
+      systemCoin
+      name
       collaterals {
         name
         address

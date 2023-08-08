@@ -4,10 +4,11 @@ const GET_KEEPERS = gql`
   query Keepers {
     keepers {
       _id
-      name
+      collateral
       network
       status
       system
+      options
       wallet
     }
   }

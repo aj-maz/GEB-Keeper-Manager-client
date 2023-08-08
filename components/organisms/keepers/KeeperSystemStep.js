@@ -19,6 +19,7 @@ const KeeperSystemStep = ({systemSettings, setSystemSettings, systems}) => {
 
     useEffect(() => {
         setSelectedSystem(systems[0].name)
+        console.log(systems[0].networks)
         setSelectedNetwork(systems[0].networks[0].name)
         setSelectedCollateral(systems[0].networks[0].collaterals[0].name)
     }, [])

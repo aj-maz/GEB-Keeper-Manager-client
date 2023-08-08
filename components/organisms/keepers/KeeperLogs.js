@@ -13,6 +13,39 @@ const KeeperLogs = ({ keeper }) => {
     return theme.palette.secondary.main;
   };
 
+
+
+  function extractTracebacks(logFileString) {
+    const tracebackPattern = /Traceback \(most recent call last\):\n([\s\S]+?)(?=\n\n|$)/g;
+    const tracebacks = [];
+    let match;
+
+    while ((match = tracebackPattern.exec(logFileString)) !== null) {
+      const traceback = match[1].trim();
+      tracebacks.push(traceback);
+    }
+
+    return tracebacks;
+  }
+
+
+  function extractLogs(logFileString) {
+    const logEntryPattern = /(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d{3}) (\w+)\s+([\s\S]*?)(?=\n\d{4}-\d{2}-\d{2}|\n$)/g;
+    const logs = [];
+    let match;
+
+    while ((match = logEntryPattern.exec(logFileString)) !== null) {
+      const [, timestamp, logType, message] = match;
+      logs.push({ timestamp: timestamp.substring(0, timestamp.length - 4), logType, message });
+    }
+
+    return logs;
+  }
+
+
+
+  console.log(extractLogs(keeper.logs))
+
   return (
     <Paper
       css={(theme) => css`
@@ -23,7 +56,7 @@ const KeeperLogs = ({ keeper }) => {
         background-color: ${theme.palette.background.default};
       `}
     >
-      {[...keeper.logs].reverse().map((log) => (
+      {extractLogs(keeper.logs).reverse().map((log) => (
         <Typography
           key={log.message}
           css={css`
@@ -40,19 +73,19 @@ const KeeperLogs = ({ keeper }) => {
               `
             }
           >
-            {moment(parseInt(log.date)).format()}
+            {moment(new Date(log.timestamp)).format()}
           </span>{" "}
           |{" "}
           <span
             css={(theme) =>
               css`
-                color: ${renderColor({ theme, variant: log.variant })};
+                color: ${renderColor({ theme, variant: log.logType })};
               `
             }
           >
-            {log.variant}
+            {log.logType}
           </span>{" "}
-          |{log.message}
+          | {log.message}
         </Typography>
       ))}
     </Paper>
