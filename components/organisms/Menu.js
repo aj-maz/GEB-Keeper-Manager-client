@@ -23,10 +23,10 @@ const Menu = () => {
       Icon: Home,
       route: "/",
     },
-    { title: "Wallets", Icon: Wallet, route: "/wallets" },
-    { title: "Networks", Icon: Podcasts, route: "/networks" },
-    { title: "Keepers", Icon: PrecisionManufacturing, route: "/keepers" },
-    { title: "Users", Icon: PeopleAlt, route: "/users" },
+    // { title: "Wallets", Icon: Wallet, route: "/wallets" },
+    // { title: "Networks", Icon: Podcasts, route: "/networks" },
+    // { title: "Keepers", Icon: PrecisionManufacturing, route: "/keepers" },
+    // { title: "Users", Icon: PeopleAlt, route: "/users" },
   ];
 
   return (

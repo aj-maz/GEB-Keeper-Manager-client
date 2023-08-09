@@ -13,10 +13,9 @@ const KeeperLogs = ({ keeper }) => {
     return theme.palette.secondary.main;
   };
 
-
-
   function extractTracebacks(logFileString) {
-    const tracebackPattern = /Traceback \(most recent call last\):\n([\s\S]+?)(?=\n\n|$)/g;
+    const tracebackPattern =
+      /Traceback \(most recent call last\):\n([\s\S]+?)(?=\n\n|$)/g;
     const tracebacks = [];
     let match;
 
@@ -28,23 +27,25 @@ const KeeperLogs = ({ keeper }) => {
     return tracebacks;
   }
 
-
   function extractLogs(logFileString) {
-    const logEntryPattern = /(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d{3}) (\w+)\s+([\s\S]*?)(?=\n\d{4}-\d{2}-\d{2}|\n$)/g;
+    const logEntryPattern =
+      /(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d{3}) (\w+)\s+([\s\S]*?)(?=\n\d{4}-\d{2}-\d{2}|\n$)/g;
     const logs = [];
     let match;
 
     while ((match = logEntryPattern.exec(logFileString)) !== null) {
       const [, timestamp, logType, message] = match;
-      logs.push({ timestamp: timestamp.substring(0, timestamp.length - 4), logType, message });
+      logs.push({
+        timestamp: timestamp.substring(0, timestamp.length - 4),
+        logType,
+        message,
+      });
     }
 
     return logs;
   }
 
-
-
-  console.log(extractLogs(keeper.logs))
+  console.log(extractLogs(keeper.logs));
 
   return (
     <Paper
@@ -56,38 +57,40 @@ const KeeperLogs = ({ keeper }) => {
         background-color: ${theme.palette.background.default};
       `}
     >
-      {extractLogs(keeper.logs).reverse().map((log) => (
-        <Typography
-          key={log.message}
-          css={css`
-            margin-bottom: 1em;
-            font-family: "Courier New", Courier, monospace;
-            font-weight: 600;
-          `}
-          variant="body2"
-        >
-          <span
-            css={(theme) =>
-              css`
-                color: ${theme.palette.lime.main};
-              `
-            }
+      {extractLogs(keeper.logs)
+        .reverse()
+        .map((log) => (
+          <Typography
+            key={`${log.message}${log.timestamp}${log.logType}`}
+            css={css`
+              margin-bottom: 1em;
+              font-family: "Courier New", Courier, monospace;
+              font-weight: 600;
+            `}
+            variant="body2"
           >
-            {moment(new Date(log.timestamp)).format()}
-          </span>{" "}
-          |{" "}
-          <span
-            css={(theme) =>
-              css`
-                color: ${renderColor({ theme, variant: log.logType })};
-              `
-            }
-          >
-            {log.logType}
-          </span>{" "}
-          | {log.message}
-        </Typography>
-      ))}
+            <span
+              css={(theme) =>
+                css`
+                  color: ${theme.palette.lime.main};
+                `
+              }
+            >
+              {moment(new Date(log.timestamp)).format()}
+            </span>{" "}
+            |{" "}
+            <span
+              css={(theme) =>
+                css`
+                  color: ${renderColor({ theme, variant: log.logType })};
+                `
+              }
+            >
+              {log.logType}
+            </span>{" "}
+            | {log.message}
+          </Typography>
+        ))}
     </Paper>
   );
 };

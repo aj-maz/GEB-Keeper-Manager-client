@@ -9,7 +9,7 @@ const KeeperDetails = ({ data, loading }) => {
 
   return (
     <DashboardLayout>
-      {loading ? (
+      {loading || !data ? (
         <Typography variant="h6">Loading ...</Typography>
       ) : (
         <div>
