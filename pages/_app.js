@@ -92,7 +92,7 @@ const theme = (dark) =>
   });
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/",
+  uri: "http://82.115.18.12:4000/",
   cache: new InMemoryCache(),
 });
 
