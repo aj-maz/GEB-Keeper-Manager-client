@@ -53,8 +53,8 @@ const KeeperOptions = ({ options, handleKeeperOptions }) => {
         `}
       >
         <Typography variant="body1">
-          In the production scenario it's best to run atleast 2 keeper for each
-          collateral type in the system. One that is{" "}
+          In the production scenario it&apos;s best to run atleast 2 keeper for
+          each collateral type in the system. One that is{" "}
           <span
             css={(theme) =>
               css`
