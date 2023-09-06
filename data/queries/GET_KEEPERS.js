@@ -10,6 +10,7 @@ const GET_KEEPERS = gql`
       system
       options
       wallet
+      unseenNotifsCount
     }
   }
 `;

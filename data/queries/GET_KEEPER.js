@@ -11,6 +11,47 @@ const GET_KEEPER = gql`
       options
       wallet
       logs
+      unseenNotifsCount
+      notifications {
+        createdAt
+        _id
+        keeperAddress
+        payload {
+          context
+          name
+          stringifiedParams
+        }
+        seen
+        uniqueHelper
+      }
+      balances {
+        native
+        system
+        systemCoinJoin
+        collateral
+        collateralCoinJoin
+      }
+      transactions {
+        processed
+        keeperAddress
+        hash
+        data {
+          block_signed_at
+        }
+        directEvents {
+          decoded {
+            name
+            signature
+            params {
+              name
+              type
+              indexed
+              decoded
+              value
+            }
+          }
+        }
+      }
     }
   }
 `;

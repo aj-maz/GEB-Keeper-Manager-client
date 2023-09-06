@@ -5,7 +5,6 @@ import { Typography } from "@mui/material";
 import { DashboardLayout, CreateKeeperSteps } from "../organisms";
 
 const Keepers = ({ data, loading, error, startKeeper }) => {
-
   const systems = data && data.systems ? data.systems : [];
 
   return (
@@ -13,7 +12,7 @@ const Keepers = ({ data, loading, error, startKeeper }) => {
       {loading && !data ? (
         <Typography variant="h6">Loading ...</Typography>
       ) : (
-        <CreateKeeperSteps systems={systems}/>
+        <CreateKeeperSteps systems={systems} />
       )}
     </DashboardLayout>
   );

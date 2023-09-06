@@ -15,7 +15,7 @@ const KeeperDetailsPage = () => {
     variables: { keeperId: router.query.id },
   });
 
-  console.log(data, error);
+  console.log(error);
 
   return <KeeperDetails data={data} loading={loading} error={error} />;
 };

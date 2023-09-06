@@ -1,11 +1,16 @@
 /* eslint-disable react/react-in-jsx-scope -- Unaware of jsxImportSource */
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Paper, Typography, Grid } from "@mui/material";
+import { Paper, Typography, Button } from "@mui/material";
 import { InfoRow } from "../../atoms";
 import moment from "moment";
+import { useState } from "react";
 
 const KeeperLogs = ({ keeper }) => {
+  const [limit, setLimit] = useState(50);
+
+  const loadMore = () => setLimit((limit) => limit + 50);
+
   const renderColor = ({ variant, theme }) => {
     if (variant === "WARNING") return theme.palette.warning.main;
     if (variant === "INFO") return theme.palette.info.main;
@@ -45,8 +50,6 @@ const KeeperLogs = ({ keeper }) => {
     return logs;
   }
 
-  console.log(extractLogs(keeper.logs));
-
   return (
     <Paper
       css={(theme) => css`
@@ -59,6 +62,7 @@ const KeeperLogs = ({ keeper }) => {
     >
       {extractLogs(keeper.logs)
         .reverse()
+        .slice(0, limit)
         .map((log) => (
           <Typography
             key={`${log.message}${log.timestamp}${log.logType}`}
@@ -91,6 +95,16 @@ const KeeperLogs = ({ keeper }) => {
             | {log.message}
           </Typography>
         ))}
+      <div
+        css={css`
+          display: flex;
+          justify-content: center;
+        `}
+      >
+        <Button onClick={loadMore} color="inherit">
+          Load More
+        </Button>
+      </div>
     </Paper>
   );
 };

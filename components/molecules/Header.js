@@ -1,7 +1,10 @@
+/* eslint-disable react/react-in-jsx-scope -- Unaware of jsxImportSource */
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
-import { Menu } from "@mui/icons-material";
+import { Menu, Logout } from "@mui/icons-material";
 
-const Header = ({ drawerWidth, handleDrawerToggle }) => {
+const Header = ({ drawerWidth, handleDrawerToggle, logout }) => {
   return (
     <AppBar
       position="fixed"
@@ -20,9 +23,21 @@ const Header = ({ drawerWidth, handleDrawerToggle }) => {
         >
           <Menu />
         </IconButton>
-        <Typography variant="h6" noWrap component="div">
-          GEB Keeper Manager
-        </Typography>
+        <div
+          css={css`
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+          `}
+        >
+          <Typography variant="h6" noWrap component="div">
+            GEB Keeper Manager
+          </Typography>
+          <IconButton onClick={logout}>
+            <Logout />
+          </IconButton>
+        </div>
       </Toolbar>
     </AppBar>
   );

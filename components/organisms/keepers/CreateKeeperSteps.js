@@ -58,7 +58,7 @@ const CreateKeeperSteps = ({ systems }) => {
     options: [],
   });
 
-  console.log(keeperSettings);
+  console.log(keeperSettings.wallet);
 
   const pK = keeperSettings.wallet.fromPrivateKey.privateKey;
 
@@ -169,7 +169,7 @@ const CreateKeeperSteps = ({ systems }) => {
   };
 
   useEffect(() => {
-    if (activeStep === 2) {
+    if (activeStep === 2 && !keeperSettings.walletSetup.walletObject) {
       const walletObject = generateWalletObject();
       changeKeeperSetting("walletSetup")("walletObject")(walletObject);
       changeKeeperSetting("walletSetup")("walletObject")(walletObject);
@@ -242,7 +242,6 @@ const CreateKeeperSteps = ({ systems }) => {
   };
 
   const handleFinish = () => {
-    console.log(keeperSettings.system.name);
     startKeeper({
       variables: {
         system: keeperSettings.system.name,

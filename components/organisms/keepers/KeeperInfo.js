@@ -5,6 +5,11 @@ import { Paper, Button, Grid } from "@mui/material";
 import { InfoRow } from "../../atoms";
 
 import { gql, useMutation } from "@apollo/client";
+import {
+  RESTART_KEEPER,
+  STOP_KEEPER,
+  EXPORT_WALLET,
+} from "../../../data/queries";
 
 const CHANGE_KEEPER_STATUS = gql`
   mutation changeKeeperStatus($keeperId: ID!) {
@@ -12,18 +17,41 @@ const CHANGE_KEEPER_STATUS = gql`
   }
 `;
 
-const KeeperInfo = ({ keeper }) => {
-  const [changeKeeperStatus] = useMutation(CHANGE_KEEPER_STATUS);
+/*
+ case KeeperStatus.INITIALIZING:
+        return "Initializing";
+      case KeeperStatus.PREPARING:
+        return "Preparing";
+      case KeeperStatus.RUNNING:
+        return "Running";
+      case KeeperStatus.STOPPING:
+        return "Stopping";
+      case KeeperStatus.FAILED:
+        return "Failed";
+      case KeeperStatus.STOPPED:
+        return "Stopped";
+      case KeeperStatus.RECOVERING:
+        return "Recovering"
+*/
 
-  console.log(keeper);
+const KeeperInfo = ({ keeper }) => {
+  const [stopKeeper] = useMutation(STOP_KEEPER);
+  const [restartKeeper] = useMutation(RESTART_KEEPER);
+  const [exportWallet] = useMutation(EXPORT_WALLET);
 
   const KeeperAction = () => {
     if (!keeper) return null;
-    if (keeper.status === "failed" || keeper.status === "stopped") {
+    if (keeper.status === "Failed" || keeper.status === "Stopped") {
       return (
         <Button
           onClick={() => {
-            changeKeeperStatus({ variables: { keeperId: keeper._id } });
+            restartKeeper({ variables: { keeperId: keeper._id } })
+              .then((r) => {
+                console.log(r);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
           }}
           size="small"
           variant="contained"
@@ -32,11 +60,11 @@ const KeeperInfo = ({ keeper }) => {
           Start Keeper
         </Button>
       );
-    } else if (keeper.status === "running") {
+    } else if (keeper.status === "Running") {
       return (
         <Button
           onClick={() => {
-            changeKeeperStatus({ variables: { keeperId: keeper._id } });
+            stopKeeper({ variables: { keeperId: keeper._id } });
           }}
           size="small"
           variant="outlined"
@@ -62,7 +90,37 @@ const KeeperInfo = ({ keeper }) => {
     >
       <Grid container spacing={2}>
         <Grid item md={6}>
-          <InfoRow label="Status" value={keeper.status}></InfoRow>
+          <div
+            css={css`
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            `}
+          >
+            <InfoRow label="Status" value={keeper.status}></InfoRow>
+            <Button
+              color="secondary"
+              onClick={() => {
+                exportWallet({ variables: { keeperId: keeper._id } }).then(
+                  (data) => {
+                    const exportdWalletData = data.data.exportWallet;
+                    console.log(exportdWalletData);
+
+                    const blob = new Blob([exportdWalletData], {
+                      type: "application/json",
+                    });
+                    const a = document.createElement("a");
+                    a.href = URL.createObjectURL(blob);
+                    a.download = `0x${keeper.wallet}`;
+                    a.click();
+                    URL.revokeObjectURL(a.href);
+                  }
+                );
+              }}
+            >
+              Export Wallet
+            </Button>
+          </div>
         </Grid>
         <Grid item md={6}>
           <KeeperAction />

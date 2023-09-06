@@ -6,6 +6,7 @@ import {
   ApolloProvider,
   gql,
 } from "@apollo/client";
+import useClient from "../data/client";
 
 const darkPallete = {
   mode: "dark",
@@ -91,12 +92,9 @@ const theme = (dark) =>
     },
   });
 
-const client = new ApolloClient({
-  uri: "http://82.115.18.12:4000/",
-  cache: new InMemoryCache(),
-});
-
 function MyApp({ Component, pageProps }) {
+  const client = useClient();
+
   return (
     <ApolloProvider client={client}>
       <DataProvider>

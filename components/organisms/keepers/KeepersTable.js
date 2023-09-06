@@ -10,7 +10,9 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Badge,
 } from "@mui/material";
+import { Notifications } from "@mui/icons-material";
 import { useRouter } from "next/router";
 
 const KeepersTable = ({ keepers }) => {
@@ -26,6 +28,7 @@ const KeepersTable = ({ keepers }) => {
             <TableCell align="center">System</TableCell>
             <TableCell align="center">Collateral</TableCell>
             <TableCell align="right">Status</TableCell>
+            <TableCell align="right"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -43,6 +46,16 @@ const KeepersTable = ({ keepers }) => {
                 <TableCell align="center">{keeper.system}</TableCell>
                 <TableCell align="center">{keeper.collateral}</TableCell>
                 <TableCell align="right">{keeper.status}</TableCell>
+                <TableCell align="right">
+                  {" "}
+                  <Badge
+                    color="info"
+                    size="small"
+                    badgeContent={keeper.unseenNotifsCount}
+                  >
+                    <Notifications />
+                  </Badge>
+                </TableCell>
               </TableRow>
               <TableRow
                 key={`${keeper._id}2`}
@@ -51,7 +64,7 @@ const KeepersTable = ({ keepers }) => {
                 `}
                 onClick={() => router.push(`/keepers/details/${keeper._id}`)}
               >
-                <TableCell colSpan={5} align="left">
+                <TableCell colSpan={6} align="left">
                   Options:{" "}
                   {keeper.options.map((option) => (
                     <Chip
