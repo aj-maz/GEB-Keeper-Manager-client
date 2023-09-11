@@ -72,7 +72,11 @@ const KeeperLogs = ({ keeper }) => {
       >
         <Button
           onClick={() => {
-            setLogs();
+            setLogs({
+              variables: {
+                keeperId: keeper._id,
+              },
+            });
           }}
           color="inherit"
         >
