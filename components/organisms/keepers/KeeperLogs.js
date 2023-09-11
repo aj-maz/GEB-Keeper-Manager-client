@@ -5,9 +5,13 @@ import { Paper, Typography, Button } from "@mui/material";
 import { InfoRow } from "../../atoms";
 import moment from "moment";
 import { useState } from "react";
+import { SET_LOGS } from "../../../data/queries";
+import { useMutation } from "@apollo/client";
 
 const KeeperLogs = ({ keeper }) => {
   const [limit, setLimit] = useState(50);
+
+  const [setLogs] = useMutation(SET_LOGS);
 
   const loadMore = () => setLimit((limit) => limit + 50);
 
@@ -60,6 +64,22 @@ const KeeperLogs = ({ keeper }) => {
         background-color: ${theme.palette.background.default};
       `}
     >
+      <div
+        css={css`
+          display: flex;
+          justify-content: flex-end;
+        `}
+      >
+        <Button
+          onClick={() => {
+            setLogs();
+          }}
+          color="inherit"
+        >
+          Set Logs
+        </Button>
+      </div>
+
       {extractLogs(keeper.logs)
         .reverse()
         .slice(0, limit)

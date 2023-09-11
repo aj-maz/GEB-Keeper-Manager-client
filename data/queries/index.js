@@ -14,6 +14,7 @@ import SEEN from "./SEEN";
 import RESTART_KEEPER from "./RESTART_KEEPER";
 import EXPORT_WALLET from "./EXPORT_WALLET";
 import STOP_KEEPER from "./STOP_KEEPER";
+import SET_LOGS from "./SET_LOGS";
 
 export {
   GET_NETWORKS,
@@ -32,4 +33,5 @@ export {
   RESTART_KEEPER,
   EXPORT_WALLET,
   STOP_KEEPER,
+  SET_LOGS,
 };
