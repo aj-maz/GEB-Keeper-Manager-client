@@ -52,7 +52,7 @@ const SafesTable = ({ data, loading, error }) => {
       >
         <Checkbox
           checked={onlyDebtful}
-          onChange={(e) => onlyDebtful((odf) => !odf)}
+          onChange={(e) => setOnlyDebtful((odf) => !odf)}
           color="secondary"
         />
         <Typography
@@ -68,7 +68,7 @@ const SafesTable = ({ data, loading, error }) => {
         <Paper>
           <DataGrid
             rows={[...data.raiSafes]
-              .filter((safe) => Number(safe.debt) > 0)
+              .filter((safe) => (onlyDebtful ? Number(safe.debt) > 0 : true))
               .sort((a, b) => Number(a.id) - Number(b.id))}
             columns={columns}
             initialState={{
