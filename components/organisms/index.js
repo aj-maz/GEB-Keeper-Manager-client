@@ -18,6 +18,9 @@ import KeeperBalances from "./keepers/KeeperBalances";
 import UsersForm from "./users/UsersForm";
 import UsersList from "./users/UsersList";
 
+import SafesTable from "./analytics/SafesTable";
+import RaiNeedsFinder from "./analytics/RaiNeedsFinder";
+
 export {
   DashboardLayout,
   WalletsTable,
@@ -34,4 +37,6 @@ export {
   KeeperBalances,
   UsersForm,
   UsersList,
+  SafesTable,
+  RaiNeedsFinder,
 };

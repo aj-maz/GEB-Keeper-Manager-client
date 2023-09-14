@@ -14,6 +14,7 @@
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.12",
+    "@mui/x-data-grid": "^6.13.0",
     "apollo-link-context": "^1.0.20",
     "ethers": "^6.1.0",
     "graphql": "^16.6.0",

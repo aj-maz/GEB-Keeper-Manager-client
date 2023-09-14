@@ -5,5 +5,15 @@ import Keepers from "./Keepers";
 import AddKeeper from "./AddKeeper";
 import KeeperDetails from "./KeeperDetails";
 import Users from "./Users";
+import Analytics from "./Analytics";
 
-export { Home, Wallets, Networks, Keepers, AddKeeper, KeeperDetails, Users };
+export {
+  Home,
+  Wallets,
+  Networks,
+  Keepers,
+  AddKeeper,
+  KeeperDetails,
+  Users,
+  Analytics,
+};

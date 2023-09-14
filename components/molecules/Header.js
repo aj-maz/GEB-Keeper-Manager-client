@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 import { Menu, Logout } from "@mui/icons-material";
 
-const Header = ({ drawerWidth, handleDrawerToggle, logout }) => {
+const Header = ({ drawerWidth, handleDrawerToggle, logout, noLogin }) => {
   return (
     <AppBar
       position="fixed"
@@ -34,9 +34,11 @@ const Header = ({ drawerWidth, handleDrawerToggle, logout }) => {
           <Typography variant="h6" noWrap component="div">
             GEB Keeper Manager
           </Typography>
-          <IconButton onClick={logout}>
-            <Logout />
-          </IconButton>
+          {!noLogin ? (
+            <IconButton onClick={logout}>
+              <Logout />
+            </IconButton>
+          ) : null}
         </div>
       </Toolbar>
     </AppBar>
