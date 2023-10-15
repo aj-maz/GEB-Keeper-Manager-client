@@ -5,7 +5,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { Home, Person } from "@mui/icons-material";
+import { Home, Person, Analytics } from "@mui/icons-material";
 import { useRouter } from "next/router";
 
 const Menu = () => {
@@ -18,7 +18,7 @@ const Menu = () => {
       route: "/",
     },
     { title: "Users", Icon: Person, route: "/users" },
-    // { title: "Networks", Icon: Podcasts, route: "/networks" },
+    { title: "Analytics", Icon: Analytics, route: "/analytics" },
     // { title: "Keepers", Icon: PrecisionManufacturing, route: "/keepers" },
     // { title: "Users", Icon: PeopleAlt, route: "/users" },
   ];

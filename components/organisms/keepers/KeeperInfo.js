@@ -122,8 +122,13 @@ const KeeperInfo = ({ keeper }) => {
             </Button>
           </div>
         </Grid>
+
         <Grid item md={6}>
           <KeeperAction />
+        </Grid>
+
+        <Grid item md={6}>
+          <InfoRow label="Task Status" value={keeper.taskStatus}></InfoRow>
         </Grid>
         <Grid item md={6}>
           <InfoRow label="Wallet" value={keeper.wallet}></InfoRow>

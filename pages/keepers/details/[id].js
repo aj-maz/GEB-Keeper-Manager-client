@@ -7,15 +7,15 @@ import { useEffect } from "react";
 const KeeperDetailsPage = () => {
   const router = useRouter();
 
-  useEffect(() => {
-    startPolling(500);
-  }, []);
-
   const { data, loading, error, startPolling } = useQuery(GET_KEEPER, {
     variables: { keeperId: router.query.id },
   });
 
-  console.log(error);
+  useEffect(() => {
+    startPolling(2000);
+  }, []);
+
+  console.log(error, "hi");
 
   return <KeeperDetails data={data} loading={loading} error={error} />;
 };

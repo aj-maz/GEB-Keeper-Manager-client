@@ -37,7 +37,7 @@ function DashboardLayout({ window, children }) {
 
   const logout = () => {
     localStorage.setItem("keeper-manager-token", "");
-    client.resetStore();
+    client.cache.reset();
     setIsAuthenticated(false);
   };
 
@@ -108,7 +108,7 @@ function DashboardLayout({ window, children }) {
 
                 localStorage.setItem("keeper-manager-token", token);
                 // refetch();
-                client.resetStore();
+                client.cache.reset();
                 setIsAuthenticated(true);
               } catch (err) {
                 console.log(err);

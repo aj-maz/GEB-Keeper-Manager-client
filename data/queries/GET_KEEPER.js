@@ -12,6 +12,7 @@ const GET_KEEPER = gql`
       wallet
       logs
       unseenNotifsCount
+      taskStatus
       notifications {
         createdAt
         _id

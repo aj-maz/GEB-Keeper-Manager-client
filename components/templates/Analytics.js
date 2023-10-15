@@ -3,13 +3,11 @@
 import { css } from "@emotion/react";
 import { Box, CssBaseline } from "@mui/material";
 import { Header } from "../molecules";
-import { SafesTable, RaiNeedsFinder } from "../organisms";
+import { SafesTable, RaiNeedsFinder, DashboardLayout } from "../organisms";
 
 const Analytics = ({ data, loading, error }) => {
   return (
-    <Box>
-      <CssBaseline />
-      <Header noLogin />
+    <DashboardLayout>
       <div
         css={css`
           margin-top: 100px;
@@ -29,7 +27,7 @@ const Analytics = ({ data, loading, error }) => {
       >
         <SafesTable data={data} loading={loading} error={error} />
       </div>
-    </Box>
+    </DashboardLayout>
   );
 };
 export default Analytics;
