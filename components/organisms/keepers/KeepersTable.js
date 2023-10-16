@@ -1,6 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope -- Unaware of jsxImportSource */
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { Fragment } from "react";
 import {
   Chip,
   Paper,
@@ -33,9 +34,8 @@ const KeepersTable = ({ keepers }) => {
         </TableHead>
         <TableBody>
           {keepers.map((keeper) => (
-            <>
+            <Fragment key={keeper._id}>
               <TableRow
-                key={keeper._id}
                 css={css`
                   cursor: pointer;
                 `}
@@ -58,7 +58,6 @@ const KeepersTable = ({ keepers }) => {
                 </TableCell>
               </TableRow>
               <TableRow
-                key={`${keeper._id}2`}
                 css={css`
                   cursor: pointer;
                 `}
@@ -77,7 +76,7 @@ const KeepersTable = ({ keepers }) => {
                   ))}
                 </TableCell>
               </TableRow>
-            </>
+            </Fragment>
           ))}
         </TableBody>
       </Table>
