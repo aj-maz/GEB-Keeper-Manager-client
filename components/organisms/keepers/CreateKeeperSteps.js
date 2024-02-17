@@ -121,9 +121,15 @@ const CreateKeeperSteps = ({ systems }) => {
 
   const networksRPCAddresses = {
     mainnet:
-      "https://eth-mainnet.g.alchemy.com/v2/PKDcpW-zo09u7KieHzUl5H0qujGgr5nv",
+      "https://eth-mainnet.g.alchemy.com/v2/QQ9aZOiapnqv1hACPdGB46TfTauBtEjo",
     goerli:
-      "https://eth-goerli.g.alchemy.com/v2/l_THcPj6shiZ-E1LyKHnHeXx75E1iXrT",
+      "https://eth-goerli.g.alchemy.com/v2/QQ9aZOiapnqv1hACPdGB46TfTauBtEjo",
+    optimism:
+      "https://opt-mainnet.g.alchemy.com/v2/QQ9aZOiapnqv1hACPdGB46TfTauBtEjo",
+    optimismgoerli:
+      "https://opt-goerli.g.alchemy.com/v2/CX5RZCYG9fuZD9p0MRLOGrbvJzgz5kcW",
+    optimismsepolia:
+      "https://opt-sepolia.g.alchemy.com/v2/yLQ0-gKpTGHrJU4SRtIaHTH1bU_sCMX6",
   };
 
   const getWalletBalances = async (walletObject) => {
