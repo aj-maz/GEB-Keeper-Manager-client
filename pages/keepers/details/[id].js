@@ -15,7 +15,7 @@ const KeeperDetailsPage = () => {
     startPolling(2000);
   }, []);
 
-  console.log(error, "hi");
+  console.log(error, "hi", data);
 
   return <KeeperDetails data={data} loading={loading} error={error} />;
 };

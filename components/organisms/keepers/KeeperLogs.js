@@ -54,6 +54,22 @@ const KeeperLogs = ({ keeper }) => {
     return logs;
   }
 
+  function extractSimpleLogs(logFileString) {
+    const logEntryPattern =
+      /\b(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{9}Z)\b([\s\S]*?)(?=\b\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{9}Z\b|$)/g;
+    const logs = [];
+    let match;
+
+    while ((match = logEntryPattern.exec(logFileString)) !== null) {
+      const [, date, rest] = match;
+      logs.push([date, rest.trim()]);
+    }
+
+    return logs;
+  }
+
+  const extractedLogs = extractLogs(keeper.logs);
+
   return (
     <Paper
       css={(theme) => css`
@@ -84,41 +100,78 @@ const KeeperLogs = ({ keeper }) => {
         </Button>
       </div>
 
-      {extractLogs(keeper.logs)
-        .reverse()
-        .slice(0, limit)
-        .map((log) => (
-          <Typography
-            key={`${log.message}${log.timestamp}${log.logType}`}
-            css={css`
-              margin-bottom: 1em;
-              font-family: "Courier New", Courier, monospace;
-              font-weight: 600;
-            `}
-            variant="body2"
-          >
-            <span
-              css={(theme) =>
-                css`
-                  color: ${theme.palette.lime.main};
-                `
-              }
-            >
-              {moment(new Date(log.timestamp)).format()}
-            </span>{" "}
-            |{" "}
-            <span
-              css={(theme) =>
-                css`
-                  color: ${renderColor({ theme, variant: log.logType })};
-                `
-              }
-            >
-              {log.logType}
-            </span>{" "}
-            | {log.message}
-          </Typography>
-        ))}
+      {extractedLogs.length
+        ? extractedLogs
+            .reverse()
+            .slice(0, limit)
+            .map((log) => (
+              <Typography
+                key={`${log.message}${log.timestamp}${log.logType}`}
+                css={css`
+                  margin-bottom: 1em;
+                  font-family: "Courier New", Courier, monospace;
+                  font-weight: 600;
+                `}
+                variant="body2"
+              >
+                <span
+                  css={(theme) =>
+                    css`
+                      color: ${theme.palette.lime.main};
+                    `
+                  }
+                >
+                  {moment(new Date(log.timestamp)).format()}
+                </span>{" "}
+                |{" "}
+                <span
+                  css={(theme) =>
+                    css`
+                      color: ${renderColor({ theme, variant: log.logType })};
+                    `
+                  }
+                >
+                  {log.logType}
+                </span>{" "}
+                | {log.message}
+              </Typography>
+            ))
+        : extractSimpleLogs(keeper.logs)
+            .reverse()
+            .slice(0, limit)
+            .map((log) => (
+              <Typography
+                key={`${log[0]}${log[1]}`}
+                css={css`
+                  margin-bottom: 1em;
+                  font-family: "Courier New", Courier, monospace;
+                  font-weight: 600;
+                  margin-bottom: 0.5em;
+                `}
+                variant="body2"
+              >
+                <span
+                  css={(theme) =>
+                    css`
+                      color: ${theme.palette.lime.main};
+                    `
+                  }
+                >
+                  {moment(new Date(log[0])).format()}
+                </span>{" "}
+                |{" "}
+                <span
+                  css={(theme) =>
+                    css`
+                      color: ${renderColor({ theme, variant: log.logType })};
+                    `
+                  }
+                >
+                  {/*log.logType*/}
+                </span>{" "}
+                | {log[1]}
+              </Typography>
+            ))}
       <div
         css={css`
           display: flex;
