@@ -128,7 +128,8 @@ const KeeperInfo = ({ keeper }) => {
         </Grid>
 
         <Grid item md={6}>
-          <InfoRow label="Task Status" value={keeper.taskStatus}></InfoRow>
+          {/*<InfoRow label="Task Status" value={keeper.taskStatus}></InfoRow>*/}
+          <InfoRow label="Collateral" value={keeper.collateral}></InfoRow>
         </Grid>
         <Grid item md={6}>
           <InfoRow label="Wallet" value={keeper.wallet}></InfoRow>
@@ -140,9 +141,9 @@ const KeeperInfo = ({ keeper }) => {
         <Grid item md={6}>
           <InfoRow label="System" value={keeper.system}></InfoRow>
         </Grid>
-        <Grid item md={6}>
+        {/*<Grid item md={6}>
           <InfoRow label="Collateral" value={keeper.collateral}></InfoRow>
-        </Grid>
+            </Grid>*/}
       </Grid>
     </Paper>
   );

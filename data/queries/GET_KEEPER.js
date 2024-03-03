@@ -10,7 +10,6 @@ const GET_KEEPER = gql`
       system
       options
       wallet
-      logs
       unseenNotifsCount
       taskStatus
       notifications {
