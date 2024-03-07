@@ -15,7 +15,7 @@ import {
 import { useState } from "react";
 
 const KeeperDetails = ({ data, loading }) => {
-  const [selectedTab, setSelectedTab] = useState("transactions");
+  const [selectedTab, setSelectedTab] = useState("notifications");
 
   const keeper = !data ? null : data.keeper;
 
@@ -23,8 +23,8 @@ const KeeperDetails = ({ data, loading }) => {
     switch (selectedTab) {
       //case "logs":
       //return <KeeperLogs keeper={keeper} />;
-      case "transactions":
-        return <KeeperTransactions keeper={keeper} />;
+      //case "transactions":
+      //  return <KeeperTransactions keeper={keeper} />;
       case "notifications":
         return <KeeperNotifications keeper={keeper} />;
     }
@@ -58,8 +58,8 @@ const KeeperDetails = ({ data, loading }) => {
             indicatorColor="secondary"
             onChange={(e, v) => setSelectedTab(v)}
           >
-            {/*<Tab label="Logs" value="logs" />*/}
-            <Tab label="Transactions" value="transactions" />
+            {/*<Tab label="Logs" value="logs" />
+            <Tab label="Transactions" value="transactions" />*/}
             <Tab
               label={
                 <Badge
