@@ -14,10 +14,10 @@ import {
 
 import { useState } from "react";
 
-const KeeperDetails = ({ data, loading }) => {
+const KeeperDetails = ({ data, loading, error, keeperStatus }) => {
   const [selectedTab, setSelectedTab] = useState("notifications");
 
-  const keeper = !data ? null : data.keeper;
+  const keeper = !data && !keeperStatus.data ? null : data.keeper;
 
   const renderProperDetail = () => {
     switch (selectedTab) {
@@ -30,19 +30,29 @@ const KeeperDetails = ({ data, loading }) => {
     }
   };
 
+  const status = Number(keeperStatus.data?.keeperStatus);
+
   return (
     <DashboardLayout>
       {loading || !data ? (
         <Typography variant="h6">Loading ...</Typography>
       ) : (
         <div>
-          <KeeperInfo keeper={keeper} />
+          <KeeperInfo
+            keeper={keeper}
+            status={status}
+            statusRefetch={keeperStatus.refetch}
+          />
           <div
             css={css`
               margin-top: 1em;
             `}
           ></div>
-          <KeeperBalances keeper={keeper} />
+          <KeeperBalances
+            status={status}
+            statusRefetch={keeperStatus.refetch}
+            keeper={keeper}
+          />
           <div
             css={css`
               margin-top: 1em;

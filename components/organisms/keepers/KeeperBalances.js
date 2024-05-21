@@ -3,9 +3,16 @@
 import { css } from "@emotion/react";
 import { Button, Typography, Avatar } from "@mui/material";
 import { ethers } from "ethers";
+import { gql, useMutation } from "@apollo/client";
 
-const KeeperBalances = ({ keeper }) => {
-  console.log(ethers.formatEther(keeper.balances.native));
+import {
+  EXIT_COLLATERAL_MUT,
+  EXIT_SYSTEM_COIN_MUT,
+} from "../../../data/queries";
+
+const KeeperBalances = ({ keeper, status }) => {
+  const [exitCollateral] = useMutation(EXIT_COLLATERAL_MUT);
+  const [exitSystemCoin] = useMutation(EXIT_SYSTEM_COIN_MUT);
 
   return (
     <div
@@ -42,7 +49,14 @@ const KeeperBalances = ({ keeper }) => {
           </Typography>
         </div>
         <div>
-          <Button disabled variant="contained">
+          <Button
+            disabled={status !== 3}
+            variant="contained"
+            onClick={async () => {
+              await exitSystemCoin({ variables: { keeperId: keeper._id } });
+              alert("exiting system coin request sent. please wait.");
+            }}
+          >
             Exit System Coins From CoinJoin
           </Button>
           <br />
@@ -51,7 +65,11 @@ const KeeperBalances = ({ keeper }) => {
               margin-top: 0.5em;
             `}
             variant="contained"
-            disabled
+            disabled={status !== 3}
+            onClick={async () => {
+              await exitCollateral({ variables: { keeperId: keeper._id } });
+              alert("exiting collateral request sent. please wait.");
+            }}
           >
             Exit Collateral From CoinJoin
           </Button>

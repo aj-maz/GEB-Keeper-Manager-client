@@ -16,6 +16,10 @@ import EXPORT_WALLET from "./EXPORT_WALLET";
 import STOP_KEEPER from "./STOP_KEEPER";
 import SET_LOGS from "./SET_LOGS";
 
+import GET_KEEPER_STATUS from "./GET_KEEPER_STATUS";
+
+export * from "./KEEPER_MUTATIONS";
+
 export {
   GET_NETWORKS,
   GET_WALLETS,
@@ -34,4 +38,5 @@ export {
   EXPORT_WALLET,
   STOP_KEEPER,
   SET_LOGS,
+  GET_KEEPER_STATUS,
 };

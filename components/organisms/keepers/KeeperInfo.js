@@ -9,6 +9,11 @@ import {
   RESTART_KEEPER,
   STOP_KEEPER,
   EXPORT_WALLET,
+  ///
+  START_MUT,
+  STOP_MUT,
+  EXIT_COLLATERAL_MUT,
+  EXIT_SYSTEM_COIN_MUT,
 } from "../../../data/queries";
 
 const CHANGE_KEEPER_STATUS = gql`
@@ -34,24 +39,41 @@ const CHANGE_KEEPER_STATUS = gql`
         return "Recovering"
 */
 
-const KeeperInfo = ({ keeper }) => {
-  const [stopKeeper] = useMutation(STOP_KEEPER);
+const renderStatus = (status) => {
+  switch (status) {
+    case 0:
+      return "Initializing";
+    case 1:
+      return "Working";
+    case 2:
+      return "Stopping";
+    case 3:
+      return "Stopped";
+  }
+};
+
+const KeeperInfo = ({ keeper, status, statusRefetch }) => {
+  const [stopKeeper] = useMutation(STOP_MUT);
+  const [startKeeper] = useMutation(START_MUT);
+
   const [restartKeeper] = useMutation(RESTART_KEEPER);
   const [exportWallet] = useMutation(EXPORT_WALLET);
 
   const KeeperAction = () => {
-    if (!keeper) return null;
-    if (keeper.status === "Failed" || keeper.status === "Stopped") {
+    if (!status) return null;
+    if (status) {
       return (
         <Button
-          onClick={() => {
-            restartKeeper({ variables: { keeperId: keeper._id } })
-              .then((r) => {
-                console.log(r);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
+          onClick={async () => {
+            //restartKeeper({ variables: { keeperId: keeper._id } })
+            //  .then((r) => {
+            //    console.log(r);
+            //  })
+            //  .catch((err) => {
+            //    console.log(err);
+            //  });
+            await startKeeper({ variables: { keeperId: keeper._id } });
+            statusRefetch();
           }}
           size="small"
           variant="contained"
@@ -60,11 +82,12 @@ const KeeperInfo = ({ keeper }) => {
           Start Keeper
         </Button>
       );
-    } else if (keeper.status === "Running") {
+    } else if (status === 1) {
       return (
         <Button
-          onClick={() => {
-            stopKeeper({ variables: { keeperId: keeper._id } });
+          onClick={async () => {
+            await stopKeeper({ variables: { keeperId: keeper._id } });
+            statusRefetch();
           }}
           size="small"
           variant="outlined"
@@ -97,7 +120,7 @@ const KeeperInfo = ({ keeper }) => {
               justify-content: space-between;
             `}
           >
-            <InfoRow label="Status" value={keeper.status}></InfoRow>
+            <InfoRow label="Status" value={renderStatus(status)}></InfoRow>
             <Button
               color="secondary"
               onClick={() => {
