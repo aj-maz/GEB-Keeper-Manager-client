@@ -223,6 +223,14 @@ const CreateKeeperSteps = ({ systems }) => {
         <KeeperOptions
           options={keeperSettings.options}
           handleKeeperOptions={handleKeeperOption}
+          collateral={systems
+            .find((system) => system.name === keeperSettings?.system?.name)
+            ?.networks.find(
+              (network) => network.name === keeperSettings?.system?.network
+            )
+            ?.collaterals.find(
+              (network) => network.name === keeperSettings?.system?.collateral
+            )}
         />
       ),
     },

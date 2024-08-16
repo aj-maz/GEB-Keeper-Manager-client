@@ -3,7 +3,9 @@ import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
 import { setContext } from "apollo-link-context";
 
 const useClient = () => {
-  const graphqlServer = process.env.NEXT_PUBLIC_GRAPHQL_URL || "http://159.65.187.22/api";
+  // "http://localhost/api"
+  const graphqlServer =
+    process.env.NEXT_PUBLIC_GRAPHQL_URL || "http://159.65.187.22/api";
 
   const basicClient = new ApolloClient({
     link: graphqlServer,

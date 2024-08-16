@@ -3,46 +3,52 @@
 import { css } from "@emotion/react";
 import { Checkbox, Typography, Paper } from "@mui/material";
 
-const optionsList = [
-  {
-    label: "Bid Only",
-    value: "bid-only",
-    default: false,
-    description: `Do not take opportunities to create new auctions`,
-  },
-  {
-    label: "Start Auction Only",
-    value: "start-auctions-only",
-    default: false,
-    description: `Do not bid on auctions. This includes flash swaps`,
-  },
-  {
-    label: "Keep system coin in SAFEEngine on exit",
-    value: "keep-system-coin-in-safe-engine-on-exit",
-    default: false,
-    description: `Retain system coin in the SAFE Engine on exit, saving gas when restarting the keeper`,
-  },
-  {
-    label: "Keep collateral in SAFEEngine on exit",
-    value: "keep-collateral-in-safe-engine-on-exit",
-    default: false,
-    description: `Retain collateral in the SAFE Engine on exit`,
-  },
-  {
-    label: "Swap Collateral After Auction",
-    value: "swap-collateral",
-    default: true,
-    description: `After exiting won collateral, swap it on Uniswap for system coin`,
-  },
-  {
-    label: "Flash Swap",
-    value: "flash-swap",
-    default: false,
-    description: `Use uniswap flash swaps to liquidate and settle auctions. No system coin or collateral is needed`,
-  },
-];
+const KeeperOptions = ({ options, handleKeeperOptions, collateral }) => {
+  const optionsList = [
+    {
+      label: "Bid Only",
+      value: "bid-only",
+      default: false,
+      description: `Do not take opportunities to create new auctions`,
+      disabled: false,
+    },
+    {
+      label: "Start Auction Only",
+      value: "start-auctions-only",
+      default: false,
+      description: `Do not bid on auctions. This includes flash swaps`,
+      disabled: false,
+    },
+    {
+      label: "Keep system coin in SAFEEngine on exit",
+      value: "keep-system-coin-in-safe-engine-on-exit",
+      default: false,
+      description: `Retain system coin in the SAFE Engine on exit, saving gas when restarting the keeper`,
+      disabled: false,
+    },
+    {
+      label: "Keep collateral in SAFEEngine on exit",
+      value: "keep-collateral-in-safe-engine-on-exit",
+      default: false,
+      description: `Retain collateral in the SAFE Engine on exit`,
+      disabled: false,
+    },
+    {
+      label: "Swap Collateral After Auction",
+      value: "swap-collateral",
+      default: true,
+      description: `After exiting won collateral, swap it on Uniswap for system coin`,
+      disabled: true,
+    },
+    {
+      label: "Flash Swap",
+      value: "flash-swap",
+      default: false,
+      description: `Use uniswap flash swaps to liquidate and settle auctions. No system coin or collateral is needed`,
+      disabled: !collateral.flashSwapEnabled,
+    },
+  ];
 
-const KeeperOptions = ({ options, handleKeeperOptions }) => {
   return (
     <div>
       <Paper
@@ -92,6 +98,7 @@ const KeeperOptions = ({ options, handleKeeperOptions }) => {
               css={css`
                 margin-right: 0.5em;
               `}
+              disabled={option.disabled}
             />
             <Typography variant="body1">{option.label}</Typography>
           </div>

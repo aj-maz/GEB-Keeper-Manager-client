@@ -52,6 +52,8 @@ const SigninPage = () => {
                 method: "eth_requestAccounts",
               });
 
+              console.log(accounts);
+
               const nonceResponse = await getNonce({
                 variables: {
                   address: accounts[0],
@@ -59,6 +61,8 @@ const SigninPage = () => {
               });
 
               const nonce = nonceResponse.data.getNonce;
+
+              console.log(nonce);
 
               const signature = await ethereum.request({
                 method: "personal_sign",
@@ -80,6 +84,7 @@ const SigninPage = () => {
               localStorage.setItem("keeper-manager-token", token);
               router.replace("/").then(() => router.reload());
             } catch (err) {
+              console.log("we are in error");
               console.log(err);
             }
           }}
